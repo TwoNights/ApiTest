@@ -140,6 +140,9 @@ class requestViewModel {
         dataQueue.async {
             let strNowTime = shared.timeFormatter.string(from: Date()) as String + content
             shared.historyArray.insert((tilte: title, content: strNowTime), at: 0)
+            if shared.historyArray.count > 500 {
+                shared.historyArray.removeLast(50)
+            }
         }
     }
     /// 移除通知
