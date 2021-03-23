@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		664732092609937D006F1513 /* requestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 664732082609937D006F1513 /* requestViewModel.swift */; };
 		66FECEBF2609900600D3A4A7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FECEBE2609900600D3A4A7 /* AppDelegate.swift */; };
 		66FECEC12609900600D3A4A7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FECEC02609900600D3A4A7 /* SceneDelegate.swift */; };
 		66FECEC32609900600D3A4A7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FECEC22609900600D3A4A7 /* ViewController.swift */; };
@@ -35,6 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		664732082609937D006F1513 /* requestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = requestViewModel.swift; sourceTree = "<group>"; };
 		66FECEBB2609900600D3A4A7 /* ApiTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ApiTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		66FECEBE2609900600D3A4A7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		66FECEC02609900600D3A4A7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -106,6 +108,7 @@
 				66FECEC72609900700D3A4A7 /* Assets.xcassets */,
 				66FECEC92609900700D3A4A7 /* LaunchScreen.storyboard */,
 				66FECECC2609900700D3A4A7 /* Info.plist */,
+				664732082609937D006F1513 /* requestViewModel.swift */,
 			);
 			path = ApiTest;
 			sourceTree = "<group>";
@@ -260,6 +263,7 @@
 			files = (
 				66FECEC32609900600D3A4A7 /* ViewController.swift in Sources */,
 				66FECEBF2609900600D3A4A7 /* AppDelegate.swift in Sources */,
+				664732092609937D006F1513 /* requestViewModel.swift in Sources */,
 				66FECEC12609900600D3A4A7 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -366,7 +370,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -421,7 +425,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
