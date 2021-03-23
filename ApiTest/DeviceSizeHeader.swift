@@ -1,6 +1,5 @@
 //
-//  EDDeviceSizeHeader.swift
-//  EddidOne
+//  deviceSizeHeader.swift
 //
 //  Created by Ad on 2020/4/13.
 //  Copyright © 2020 Ad. All rights reserved.

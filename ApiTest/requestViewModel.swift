@@ -38,7 +38,7 @@ class requestViewModel {
     /// 回调方法
     private var requestClosures: requestClosures?
     /// 定时器
-    private var timer: EDGCDTimer?
+    private var timer: GCDTimer?
     /// 展示历史数据模型
     private var showHistory: Bool = false
     /// 数据源
@@ -68,7 +68,7 @@ class requestViewModel {
         if shared.timer != nil {
             shared.timer?.cancel()
         }
-        shared.timer = EDGCDTimer(interval: 5, action: {
+        shared.timer = GCDTimer(interval: 5, action: {
             netRequest()
         })
     }

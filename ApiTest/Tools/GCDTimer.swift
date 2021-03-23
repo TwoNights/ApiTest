@@ -1,6 +1,5 @@
 //
-//  EDGCDTimer.swift
-//  EddidOne
+//  GCDTimer.swift
 //
 //  Created by IMac on 2020/4/17.
 //  Copyright © 2020 Ad. All rights reserved.
@@ -10,7 +9,7 @@
 
 import Foundation
 
-class EDGCDTimer: NSObject {
+class GCDTimer: NSObject {
     typealias ActionBlock = () -> Void
     ///执行时间
     private var interval: TimeInterval!
@@ -52,7 +51,7 @@ class EDGCDTimer: NSObject {
         cancel()
     }
 }
-extension EDGCDTimer {
+extension GCDTimer {
     ///开始定时器
     func start() {
         timer.schedule(deadline: .now() + delaySecs, repeating: interval, leeway: DispatchTimeInterval.never)

@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		660AB8812609FAB60057ED75 /* DeviceSizeHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 660AB8802609FAB60057ED75 /* DeviceSizeHeader.swift */; };
 		664732092609937D006F1513 /* requestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 664732082609937D006F1513 /* requestViewModel.swift */; };
-		664732182609A936006F1513 /* EDGCDTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 664732172609A936006F1513 /* EDGCDTimer.swift */; };
-		664732202609B56F006F1513 /* EDDeviceSizeHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6647321F2609B56F006F1513 /* EDDeviceSizeHeader.swift */; };
+		664732182609A936006F1513 /* GCDTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 664732172609A936006F1513 /* GCDTimer.swift */; };
 		66FECEBF2609900600D3A4A7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FECEBE2609900600D3A4A7 /* AppDelegate.swift */; };
 		66FECEC12609900600D3A4A7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FECEC02609900600D3A4A7 /* SceneDelegate.swift */; };
 		66FECEC32609900600D3A4A7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FECEC22609900600D3A4A7 /* ViewController.swift */; };
@@ -38,9 +38,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		660AB8802609FAB60057ED75 /* DeviceSizeHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceSizeHeader.swift; sourceTree = "<group>"; };
 		664732082609937D006F1513 /* requestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = requestViewModel.swift; sourceTree = "<group>"; };
-		664732172609A936006F1513 /* EDGCDTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EDGCDTimer.swift; path = Tools/EDGCDTimer.swift; sourceTree = "<group>"; };
-		6647321F2609B56F006F1513 /* EDDeviceSizeHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EDDeviceSizeHeader.swift; sourceTree = "<group>"; };
+		664732172609A936006F1513 /* GCDTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GCDTimer.swift; path = Tools/GCDTimer.swift; sourceTree = "<group>"; };
 		66FECEBB2609900600D3A4A7 /* ApiTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ApiTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		66FECEBE2609900600D3A4A7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		66FECEC02609900600D3A4A7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -85,7 +85,7 @@
 		664732132609A782006F1513 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
-				664732172609A936006F1513 /* EDGCDTimer.swift */,
+				664732172609A936006F1513 /* GCDTimer.swift */,
 			);
 			name = Tools;
 			sourceTree = "<group>";
@@ -117,8 +117,8 @@
 				66FECEBE2609900600D3A4A7 /* AppDelegate.swift */,
 				66FECEC02609900600D3A4A7 /* SceneDelegate.swift */,
 				66FECEC22609900600D3A4A7 /* ViewController.swift */,
-				6647321F2609B56F006F1513 /* EDDeviceSizeHeader.swift */,
 				664732082609937D006F1513 /* requestViewModel.swift */,
+				660AB8802609FAB60057ED75 /* DeviceSizeHeader.swift */,
 				66FECEC42609900600D3A4A7 /* Main.storyboard */,
 				66FECEC72609900700D3A4A7 /* Assets.xcassets */,
 				66FECEC92609900700D3A4A7 /* LaunchScreen.storyboard */,
@@ -275,12 +275,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				664732202609B56F006F1513 /* EDDeviceSizeHeader.swift in Sources */,
-				664732182609A936006F1513 /* EDGCDTimer.swift in Sources */,
+				664732182609A936006F1513 /* GCDTimer.swift in Sources */,
 				66FECEC32609900600D3A4A7 /* ViewController.swift in Sources */,
 				66FECEBF2609900600D3A4A7 /* AppDelegate.swift in Sources */,
 				664732092609937D006F1513 /* requestViewModel.swift in Sources */,
 				66FECEC12609900600D3A4A7 /* SceneDelegate.swift in Sources */,
+				660AB8812609FAB60057ED75 /* DeviceSizeHeader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
