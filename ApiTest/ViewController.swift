@@ -19,13 +19,12 @@ class ViewController: UIViewController {
         tableView.showsHorizontalScrollIndicator = false
         return tableView
     }()
-    /// 模型
-    private var modelArray: [(tilte: String, content: String)]?
     /// 头部标题
     private lazy var topLabel: UILabel = {
         let topLabel = UILabel(frame: CGRect(x: 0, y: statusBarHeight, width: screenWidth * 0.5, height: 60))
         topLabel.numberOfLines = 3
-        topLabel.backgroundColor = .lightGray
+        topLabel.text = "请求中"
+        topLabel.backgroundColor = .yellow
         topLabel.adjustsFontSizeToFitWidth = true
         topLabel.textAlignment = .center
         return topLabel
@@ -34,8 +33,10 @@ class ViewController: UIViewController {
     private lazy var switchButton: UIButton = {
         let switchButton = UIButton(frame: CGRect(x: screenWidth * 0.5, y: statusBarHeight, width: screenWidth * 0.5, height: 60))
         switchButton.setTitle("点击显示历史记录", for: .normal)
-        switchButton.setTitle("点击显示返回数据", for: .selected)
+        switchButton.setTitle("点击显示最新列表数据", for: .selected)
+        switchButton.titleLabel?.adjustsFontSizeToFitWidth = true
         switchButton.backgroundColor = .darkGray
+        switchButton.addTarget(self, action: #selector(switchButtonAction), for: .touchUpInside)
         switchButton.setTitleColor(.black, for: .normal)
         switchButton.setTitleColor(.black, for: .selected)
         return switchButton
@@ -45,13 +46,22 @@ class ViewController: UIViewController {
         // UI配置
         configUI()
         // 开启请求
-        requestViewModel.start { [weak self] (_ dataArray)  in
-            self?.modelArray = dataArray
-            self?.topLabel.text = "刷新成功,总共\(dataArray.count)条数据"
-            self?.tableView.reloadData()
-        } fail: { [weak self] (errorMsg) in
-            self?.topLabel.text = "刷新失败,\(errorMsg ?? "")"
+        requestViewModel.start { [weak self] (_ success, _ errorMsg) in
+            if success {
+                self?.topLabel.text = "请求成功"
+                self?.topLabel.backgroundColor = .green
+                self?.tableView.reloadData()
+            } else {
+                self?.topLabel.backgroundColor = .red
+                self?.topLabel.text = "刷新失败,\(errorMsg ?? "")"
+            }
         }
+    }
+    /// 切换按钮点击事件
+    @objc private func switchButtonAction() {
+        switchButton.isSelected.toggle()
+        requestViewModel.switchShowModel()
+        tableView.reloadData()
     }
     /// UI布局初始化
     private func configUI() {
@@ -66,16 +76,16 @@ class ViewController: UIViewController {
 // MARK: - tableView代理
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return modelArray?.count ?? 0
+        return requestViewModel.readModelArray()?.count ?? 0
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        // 不想导约束库实现动态行高,暂时写死
+        // 不想导约束库,暂时写死
         return 100
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ApiTestModelID) ?? UITableViewCell(style: .subtitle, reuseIdentifier: ApiTestModelID)
-        cell.textLabel?.text = modelArray?[indexPath.row].tilte
-        let detail = modelArray?[indexPath.row].content
+        cell.textLabel?.text = requestViewModel.readModelArray()?[indexPath.row].tilte
+        let detail = requestViewModel.readModelArray()?[indexPath.row].content
         cell.detailTextLabel?.text = detail
         cell.detailTextLabel?.numberOfLines = 0
         return cell
