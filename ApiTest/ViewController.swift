@@ -11,8 +11,11 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        requestViewModel.netRequest()
-        // Do any additional setup after loading the view.
+        requestViewModel.start { (_ dataArray) in
+            print(dataArray)
+        } fail: { (errorMsg) in
+            print(errorMsg)
+        }
     }
 
 

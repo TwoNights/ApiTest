@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		664732092609937D006F1513 /* requestViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 664732082609937D006F1513 /* requestViewModel.swift */; };
+		664732182609A936006F1513 /* EDGCDTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 664732172609A936006F1513 /* EDGCDTimer.swift */; };
 		66FECEBF2609900600D3A4A7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FECEBE2609900600D3A4A7 /* AppDelegate.swift */; };
 		66FECEC12609900600D3A4A7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FECEC02609900600D3A4A7 /* SceneDelegate.swift */; };
 		66FECEC32609900600D3A4A7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66FECEC22609900600D3A4A7 /* ViewController.swift */; };
@@ -37,6 +38,7 @@
 
 /* Begin PBXFileReference section */
 		664732082609937D006F1513 /* requestViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = requestViewModel.swift; sourceTree = "<group>"; };
+		664732172609A936006F1513 /* EDGCDTimer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EDGCDTimer.swift; path = Tools/EDGCDTimer.swift; sourceTree = "<group>"; };
 		66FECEBB2609900600D3A4A7 /* ApiTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ApiTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		66FECEBE2609900600D3A4A7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		66FECEC02609900600D3A4A7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -78,6 +80,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		664732132609A782006F1513 /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				664732172609A936006F1513 /* EDGCDTimer.swift */,
+			);
+			name = Tools;
+			sourceTree = "<group>";
+		};
 		66FECEB22609900600D3A4A7 = {
 			isa = PBXGroup;
 			children = (
@@ -101,6 +111,7 @@
 		66FECEBD2609900600D3A4A7 /* ApiTest */ = {
 			isa = PBXGroup;
 			children = (
+				664732132609A782006F1513 /* Tools */,
 				66FECEBE2609900600D3A4A7 /* AppDelegate.swift */,
 				66FECEC02609900600D3A4A7 /* SceneDelegate.swift */,
 				66FECEC22609900600D3A4A7 /* ViewController.swift */,
@@ -261,6 +272,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				664732182609A936006F1513 /* EDGCDTimer.swift in Sources */,
 				66FECEC32609900600D3A4A7 /* ViewController.swift in Sources */,
 				66FECEBF2609900600D3A4A7 /* AppDelegate.swift in Sources */,
 				664732092609937D006F1513 /* requestViewModel.swift in Sources */,
