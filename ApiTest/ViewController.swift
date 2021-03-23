@@ -84,9 +84,10 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ApiTestModelID) ?? UITableViewCell(style: .subtitle, reuseIdentifier: ApiTestModelID)
-        cell.textLabel?.text = requestViewModel.readModelArray()?[indexPath.row].tilte
-        let detail = requestViewModel.readModelArray()?[indexPath.row].content
-        cell.detailTextLabel?.text = detail
+        if indexPath.row < requestViewModel.readModelArray()?.count ?? 0 {
+            cell.textLabel?.text = requestViewModel.readModelArray()?[indexPath.row].tilte
+            cell.detailTextLabel?.text = requestViewModel.readModelArray()?[indexPath.row].content
+        }
         cell.detailTextLabel?.numberOfLines = 0
         return cell
     }
