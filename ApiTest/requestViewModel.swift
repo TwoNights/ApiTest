@@ -57,7 +57,7 @@ class requestViewModel {
     //=================================================================
     // MARK: 公开方法
     /// 开始刷新数据
-    /// - Parameter closures: 回到,errorMsg为nil时为成功
+    /// - Parameter closures: 回调
     static func start(closures: requestClosures?) {
         shared.requestClosures = closures
         // 读取缓存

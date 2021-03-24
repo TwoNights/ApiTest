@@ -8,6 +8,10 @@
 import UIKit
 private let ApiTestModelID = "ApiTestModelID" /// cell Id
 class ViewController: UIViewController {
+    //=================================================================
+    //                              属性列表
+    //=================================================================
+    // MARK: - 属性列表
     /// tableView
     private lazy var tableView: UITableView = {
         // 没导入约束库,暂时用frame实现
@@ -41,6 +45,10 @@ class ViewController: UIViewController {
         switchButton.setTitleColor(.black, for: .selected)
         return switchButton
     }()
+    //=================================================================
+    //                              生命周期
+    //=================================================================
+    // MARK: - 生命周期
     override func viewDidLoad() {
         super.viewDidLoad()
         // UI配置
@@ -57,6 +65,10 @@ class ViewController: UIViewController {
             }
         }
     }
+    //=================================================================
+    //                              私有方法
+    //=================================================================
+    // MARK: - 私有方法
     /// 切换按钮点击事件
     @objc private func switchButtonAction() {
         switchButton.isSelected.toggle()
