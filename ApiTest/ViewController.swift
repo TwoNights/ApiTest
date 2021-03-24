@@ -58,11 +58,11 @@ class ViewController: UIViewController {
             if success {
                 self?.topLabel.text = "请求成功"
                 self?.topLabel.backgroundColor = .green
-                self?.tableView.reloadData()
             } else {
                 self?.topLabel.backgroundColor = .red
                 self?.topLabel.text = "刷新失败,\(errorMsg ?? "")"
             }
+            self?.tableView.reloadData()
         }
     }
     //=================================================================

@@ -64,10 +64,7 @@ class requestViewModel {
         if let dict = readDict() {
             analysisModel(dict: dict, isLocal: true)
         }
-        //防止外部多次调用
-        if shared.timer != nil {
-            shared.timer?.cancel()
-        }
+        // 开启定时
         shared.timer = GCDTimer(interval: 5, action: {
             netRequest()
         })
