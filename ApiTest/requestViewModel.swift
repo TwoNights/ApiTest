@@ -13,7 +13,7 @@ import UIKit
 /// 请求回调闭包
 typealias requestClosures = (_ success: Bool, _ errorMsg: String?) -> Void
 /// 数据处理线程
-private var dataQueue: DispatchQueue = DispatchQueue(label: "ApiTestRequestViewModel.data")
+private var dataQueue: DispatchQueue = DispatchQueue(label: "ApiTestRequestViewModel.data", attributes: .concurrent)
 /// 缓存key
 private let apiTestDataCacheKey = "apiTest_dataCache_key"
 class requestViewModel {
@@ -32,7 +32,7 @@ class requestViewModel {
     /// session
     private lazy var session: URLSession = {
         let configuration = URLSessionConfiguration.default
-        configuration.timeoutIntervalForRequest = 4
+        configuration.timeoutIntervalForRequest = 5
         return URLSession(configuration: configuration)
     }()
     /// 回调方法
@@ -74,11 +74,17 @@ class requestViewModel {
     }
     /// 读取模型数据源
     static func readModelArray() -> [(tilte: String, content: String)]? {
-        return shared.showHistory ? shared.historyArray : shared.modelArray
+        var modelArray: [(tilte: String, content: String)]?
+        dataQueue.sync {
+            modelArray = shared.showHistory ? shared.historyArray : shared.modelArray
+        }
+        return modelArray
     }
     /// 数据源切换
     static func switchShowModel() {
-        shared.showHistory.toggle()
+        dataQueue.async(flags: .barrier) {
+            shared.showHistory.toggle()
+        }
     }
     //=================================================================
     //                              私有方法
@@ -113,7 +119,7 @@ class requestViewModel {
     /// 数据模型解析
     /// - Parameter dict: dict
     private static func analysisModel(dict: [String: Any], isLocal: Bool = false) {
-        dataQueue.async {
+        dataQueue.async(flags: .barrier) {
             // 指定长度数组
             var array = [(tilte: String, content: String)](repeating: ("", ""), count: dict.keys.count)
             // 赋值
@@ -137,10 +143,10 @@ class requestViewModel {
     ///   - title: 标题
     ///   - content: 内容
     private static func addHistoryModel(title: String, content: String) {
-        dataQueue.async {
+        dataQueue.async(flags: .barrier) {
             let strNowTime = shared.timeFormatter.string(from: Date()) as String + content
             shared.historyArray.insert((tilte: title, content: strNowTime), at: 0)
-            if shared.historyArray.count > 500 {
+            if shared.historyArray.count > 1500 {
                 shared.historyArray.removeLast(50)
             }
         }
