@@ -39,7 +39,7 @@ class requestViewModel {
     private var requestClosures: requestClosures?
     /// 定时器
     private var timer: GCDTimer?
-    /// 展示历史数据模型
+    /// 展示状态
     private var showHistory: Bool = false
     /// 数据源
     private var modelArray: [(tilte: String, content: String)]?
@@ -95,12 +95,16 @@ class requestViewModel {
         let task = shared.session.dataTask(with: shared.request) { (data, response, error) in
             // 异常判断
             guard error == nil else {
-                shared.requestClosures?(false, error.debugDescription)
+                DispatchQueue.main.async {
+                    shared.requestClosures?(false, error.debugDescription)
+                }
                 addHistoryModel(title: "失败", content: error.debugDescription)
                 return
             }
             guard data != nil else {
-                shared.requestClosures?(false, "返回data为空")
+                DispatchQueue.main.async {
+                    shared.requestClosures?(false, "返回data为空")
+                }
                 addHistoryModel(title: "失败", content: "返回data为空")
                 return
             }
@@ -110,7 +114,9 @@ class requestViewModel {
                     analysisModel(dict: responseData)
                 }
             }catch{
-                shared.requestClosures?(false, "数据解析失败")
+                DispatchQueue.main.async {
+                    shared.requestClosures?(false, "数据解析失败")
+                }
                 addHistoryModel(title: "失败", content: "数据解析失败")
             }
         }
@@ -126,7 +132,7 @@ class requestViewModel {
             _ = dict.keys.enumerated().map { (idx,key) in
                 array[idx] = (key, dict[key] as? String ?? "")
             }
-            // 缓存解析不保存
+            // 从网络获取才保存,记录
             if isLocal == false{
                 saveCache(dict: dict)
                 addHistoryModel(title: "成功", content: "")
@@ -144,8 +150,9 @@ class requestViewModel {
     ///   - content: 内容
     private static func addHistoryModel(title: String, content: String) {
         dataQueue.async(flags: .barrier) {
-            let strNowTime = shared.timeFormatter.string(from: Date()) as String + content
-            shared.historyArray.insert((tilte: title, content: strNowTime), at: 0)
+            let finalContent = shared.timeFormatter.string(from: Date()) as String + content
+            shared.historyArray.insert((tilte: title, content: finalContent), at: 0)
+            // 防止内存占用过大
             if shared.historyArray.count > 1500 {
                 shared.historyArray.removeLast(50)
             }
