@@ -54,7 +54,7 @@ class GCDTimer: NSObject {
 extension GCDTimer {
     ///开始定时器
     func start() {
-        timer.schedule(deadline: .now() + delaySecs, repeating: interval, leeway: DispatchTimeInterval.never)
+        timer.schedule(deadline: .now() + delaySecs, repeating: interval, leeway: DispatchTimeInterval.milliseconds(1))
         timer.setEventHandler { [weak self] in
             guard let strongSelf = self else {
                 return
