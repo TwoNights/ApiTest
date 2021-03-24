@@ -173,22 +173,3 @@ extension requestViewModel {
         UserDefaults.standard.synchronize()
     }
 }
-//=================================================================
-//                              通知
-//=================================================================
-// MARK: - 通知
-extension requestViewModel {
-    /// 通知初始化
-    private func setupNotification() {
-        NotificationCenter.default.addObserver(self, selector: #selector(willEnterForegroundNotification(notification:)), name: UIApplication.willEnterForegroundNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(didEnterBackgroundNotification(notification:)), name: UIApplication.didEnterBackgroundNotification, object: nil)
-    }
-    /// 监听进入前台的通知
-    @objc private func willEnterForegroundNotification(notification: Notification) {
-        self.timer?.resume()
-    }
-    /// 监听进入后台的通知
-    @objc private func didEnterBackgroundNotification(notification: Notification) {
-        self.timer?.suspend()
-    }
-}
