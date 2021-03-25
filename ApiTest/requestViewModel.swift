@@ -13,7 +13,9 @@ import UIKit
 /// 请求回调闭包
 typealias requestClosures = (_ success: Bool, _ errorMsg: String?) -> Void
 /// 数据处理线程
-private var dataQueue: DispatchQueue = DispatchQueue(label: "ApiTestRequestViewModel.data", attributes: .concurrent)
+private var dataQueue: DispatchQueue = DispatchQueue(label: "ApiTestRequestViewModel.Data", attributes: .concurrent)
+/// 数据解析线程
+private var analysisQueue: DispatchQueue = DispatchQueue(label: "ApiTestRequestViewModel.Analysis")
 /// 缓存key
 private let apiTestDataCacheKey = "apiTest_dataCache_key"
 class requestViewModel {
@@ -39,12 +41,51 @@ class requestViewModel {
     private var requestClosures: requestClosures?
     /// 定时器
     private var timer: GCDTimer?
-    /// 展示状态
-    private var showHistory: Bool = false
-    /// 数据源
-    private var modelArray: [(tilte: String, content: String)]?
-    /// 历史数据源
-    private var historyArray = [(tilte: String, content: String)]()
+    /// 展示状态[安全属性]
+    private var showHistory: Bool {
+        get {
+            dataQueue.sync {
+                return _showHistory
+            }
+        }
+        set {
+            dataQueue.async(flags: .barrier) {
+                self._showHistory = newValue
+            }
+        }
+    }
+    /// 展示状态[非安全,请勿直接使用]
+    private var _showHistory: Bool = false
+    /// 数据源[安全属性]
+    private var modelArray: [(tilte: String, content: String)]? {
+        get {
+            dataQueue.sync {
+                return _modelArray
+            }
+        }
+        set {
+            dataQueue.async(flags: .barrier) {
+                self._modelArray = newValue
+            }
+        }
+    }
+    /// 数据源[非安全,请勿直接使用]
+    private var _modelArray: [(tilte: String, content: String)]?
+    /// 历史数据源[安全属性]
+    private var historyArray: [(tilte: String, content: String)] {
+        get {
+            dataQueue.sync {
+                return _historyArray
+            }
+        }
+        set {
+            dataQueue.async(flags: .barrier) {
+                self._historyArray = newValue
+            }
+        }
+    }
+    /// 历史数据源[非安全,请勿直接使用]
+    private var _historyArray = [(tilte: String, content: String)]()
     /// dateFormatter创建比较耗时,每次用同一个
     private lazy var timeFormatter: DateFormatter = {
         let timeFormatter = DateFormatter()
@@ -72,16 +113,12 @@ class requestViewModel {
     /// 读取模型数据源
     static func readModelArray() -> [(tilte: String, content: String)]? {
         var modelArray: [(tilte: String, content: String)]?
-        dataQueue.sync {
-            modelArray = shared.showHistory ? shared.historyArray : shared.modelArray
-        }
+        modelArray = shared.showHistory ? shared.historyArray : shared.modelArray
         return modelArray
     }
     /// 数据源切换
     static func switchShowModel() {
-        dataQueue.async(flags: .barrier) {
-            shared.showHistory.toggle()
-        }
+        shared.showHistory.toggle()
     }
     //=================================================================
     //                              私有方法
@@ -122,7 +159,7 @@ class requestViewModel {
     /// 数据模型解析
     /// - Parameter dict: dict
     private static func analysisModel(dict: [String: Any], isLocal: Bool = false) {
-        dataQueue.async(flags: .barrier) {
+        analysisQueue.async {
             // 指定长度数组
             var array = [(tilte: String, content: String)](repeating: ("", ""), count: dict.keys.count)
             // 赋值
@@ -130,7 +167,7 @@ class requestViewModel {
                 array[idx] = (key, dict[key] as? String ?? "")
             }
             // 从网络获取才保存,记录
-            if isLocal == false{
+            if isLocal == false {
                 saveCache(dict: dict)
                 addHistoryModel(title: "成功", content: "")
             }
@@ -146,13 +183,11 @@ class requestViewModel {
     ///   - title: 标题
     ///   - content: 内容
     private static func addHistoryModel(title: String, content: String) {
-        dataQueue.async(flags: .barrier) {
-            let finalContent = shared.timeFormatter.string(from: Date()) as String + content
-            shared.historyArray.insert((tilte: title, content: finalContent), at: 0)
-            // 防止内存占用过大
-            if shared.historyArray.count > 1500 {
-                shared.historyArray.removeLast(50)
-            }
+        let finalContent = shared.timeFormatter.string(from: Date()) as String + content
+        shared.historyArray.insert((tilte: title, content: finalContent), at: 0)
+        // 防止内存占用过大
+        if shared.historyArray.count > 1500 {
+            shared.historyArray.removeLast(50)
         }
     }
     /// 移除通知

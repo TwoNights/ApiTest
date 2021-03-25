@@ -6,7 +6,6 @@
 //
 
 import UIKit
-
 /// 状态栏高度
 let statusBarHeight = isFullScreen ? CGFloat(44.0) : CGFloat(20.0)
 /// NavigationBar 高度
