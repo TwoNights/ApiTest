@@ -55,14 +55,16 @@ class ViewController: UIViewController {
         configUI()
         // 开启请求
         requestViewModel.start { [weak self] (_ success, _ errorMsg) in
-            if success {
-                self?.topLabel.text = "请求成功"
-                self?.topLabel.backgroundColor = .green
-            } else {
-                self?.topLabel.backgroundColor = .red
-                self?.topLabel.text = "刷新失败,\(errorMsg ?? "")"
+            self?.topLabel.backgroundColor = success ? .green : .red
+            self?.topLabel.text = success ? "请求成功" : "刷新失败,\(errorMsg ?? "")"
+            //判断当前展示状态
+            if self?.switchButton.isSelected == true {
+                //历史记录,只需要插入即可
+                self?.tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .top)
+            } else if success {
+                //列表请求数据成功才刷
+                self?.tableView.reloadData()
             }
-            self?.tableView.reloadData()
         }
     }
     //=================================================================

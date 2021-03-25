@@ -106,7 +106,7 @@ class requestViewModel {
             analysisModel(dict: dict, isLocal: true)
         }
         // 开启定时
-        shared.timer = GCDTimer(interval: 5, action: {
+        shared.timer = GCDTimer(interval: 5,delaySecs: 5, action: {
             netRequest()
         })
     }
